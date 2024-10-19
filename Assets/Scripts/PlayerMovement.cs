@@ -22,23 +22,43 @@ public class PlayerMovement : MonoBehaviour
     }
     void FixedUpdate()
     {
+        ApplyMovementToThePlayer();
+        ApplyFriction();
+    }
+    private void Update()
+    {
+        getInputs();
+    }
+
+    private void ApplyMovementToThePlayer()
+    {
+        //Horizontal movement
         if (Math.Abs(_inputHorizontal) > 0)
         {
             _rigidBody2D.velocity = new Vector2(_inputHorizontal * _moveSpeed, _rigidBody2D.velocity.y);
+            
+            //Sets the Player Sprite to horizontal movement direction
+            float direction = Mathf.Sign(_inputHorizontal);
+            transform.localScale = new Vector3(direction, 1, 1);
         }
         
-        if (Math.Abs(_inputVertical) > 0)
+        //Vertical movement
+        if (Math.Abs(_inputVertical) > 0 && CheckGround())
         {
             _rigidBody2D.velocity = new Vector2(_rigidBody2D.velocity.x,_inputVertical * _jumpForce);
         }
+    }
 
-        //Check if standing on the ground and apply drag force (friction)
-        if (CheckGround())
+    private void ApplyFriction()
+    {
+        //Checks if Player is standing on the ground and applies drag force (friction)
+        if (CheckGround() && _inputHorizontal == 0 && _inputVertical == 0)
         {
             _rigidBody2D.velocity *= _dragForce;
         }
     }
-    void Update()
+
+    private void getInputs()
     {
         _inputHorizontal = Input.GetAxisRaw("Horizontal");
         _inputVertical = Input.GetAxisRaw("Vertical");
