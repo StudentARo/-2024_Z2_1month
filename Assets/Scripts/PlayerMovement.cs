@@ -1,68 +1,52 @@
+using System;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
-    private Rigidbody2D _rigidBody2D;   //This stores rigidbody in order to affect Player movement using physics 
-    private float _inputHorizontal; //This stores input value for horizontal movement from Human Player
-    private bool _performJump;
-    private bool _inAir;
-    private Vector2 _currentVelocity;   //This stores Vector2 value of calculated movement
-    
     [SerializeField] private float _moveSpeed = 10.0f;  // Value for horizontal movement
-    [SerializeField] private float _jumpForce = 10.0f;  // Value for vertical movement
+    [SerializeField] private float _jumpForce = 25.0f;  // Value for vertical movement
+    [SerializeField] [Range(0.0f,1.0f)] private float _dragForce = 0.8f;   //Value should be set in range of 0-1 (1 means no friction from 'ground', 0 means friction to high to move on 'ground') 
     
-    void Start()
+    private Rigidbody2D _rigidBody2D;   //This stores rigidbody in order to affect Player movement using physics 
+    [SerializeField] private BoxCollider2D _groundCheck;  //This stores collider 'groundCheck' attached as component to the Player
+    [SerializeField] private LayerMask _groundLayer; //This stores Layer related to what's considered 'Ground' Layer
+    private float _inputHorizontal; //This stores input value for horizontal movement from Human Player
+    private float _inputVertical; //This stores input value for horizontal movement from Human Player
+    private bool _isGrounded;   //This is used for checking wheather Player is standing on 'ground' (object within "Ground" Layer)
+    
+    void Awake()
     {
         _rigidBody2D = GetComponent<Rigidbody2D>();
     }
-    
+    void FixedUpdate()
+    {
+        if (Math.Abs(_inputHorizontal) > 0)
+        {
+            _rigidBody2D.velocity = new Vector2(_inputHorizontal * _moveSpeed, _rigidBody2D.velocity.y);
+        }
+        
+        if (Math.Abs(_inputVertical) > 0)
+        {
+            _rigidBody2D.velocity = new Vector2(_rigidBody2D.velocity.x,_inputVertical * _jumpForce);
+        }
+
+        //Check if standing on the ground and apply drag force (friction)
+        if (CheckGround())
+        {
+            _rigidBody2D.velocity *= _dragForce;
+        }
+    }
     void Update()
     {
         _inputHorizontal = Input.GetAxisRaw("Horizontal");
-        _currentVelocity = new Vector2(_inputHorizontal * _moveSpeed, _rigidBody2D.velocity.y);
-
-        //Check if in air
-        if (_rigidBody2D.velocity.y != 0)
-        {
-            _inAir = true;
-        }
-        else
-        {
-            _inAir = false;
-        }
-        
-        //Check if can jump
-        if (Input.GetButton("Jump") && !_inAir)
-        {
-            _performJump = true;
-        }
-        else
-        {
-            _performJump = false;
-        }
+        _inputVertical = Input.GetAxisRaw("Vertical");
     }
 
-    private void FixedUpdate()
+    private bool CheckGround()
     {
-        MovePlayerRigidBody();
+        return Physics2D.OverlapAreaAll(_groundCheck.bounds.min, _groundCheck.bounds.max, _groundLayer).Length > 0;
     }
-
-    private void MovePlayerRigidBody()
-    {
-            _rigidBody2D.velocity = _currentVelocity;
-
-            if (_performJump)
-            {
-                _performJump = false;
-                _rigidBody2D.AddForce(new Vector2(0.0f, _jumpForce), ForceMode2D.Impulse);
-            }
-    }
-
-    /*private Vector2 calculateMovement()
-    {
-        
-    }*/
     
 }
