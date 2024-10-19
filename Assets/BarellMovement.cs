@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BarrellMovement : MonoBehaviour
+public class BarrelMovement : MonoBehaviour
 {
 
     [SerializeField]
