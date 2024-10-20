@@ -13,9 +13,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private BoxCollider2D _groundCheck;  //This stores collider 'groundCheck' attached as component to the Player
     [SerializeField] private LayerMask _groundLayer; //This stores Layer related to what's considered 'Ground' Layer
     private float _inputHorizontal; //This stores input value for horizontal movement from Human Player
-    private bool _isGrounded;   //For testing purposes, stores value for being grounded
-    private bool _jump; //This stores input value for horizontal movement from Human Player
-    private bool _doubleJump;
+        private bool _isGrounded;   //For testing purposes, stores value for being grounded
+    private bool _jump; //This stores input value for vertical movement from Human Player
+    private bool _doubleJump;   //This stores input value for vertical movement from Human Player
     
     void Awake()
     {
@@ -28,11 +28,11 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         getInputs();
-        ApplyMovementToThePlayer();
-        HandleJump();
+        PerformHorizontalMovement();
+        PerformVerticalMovement();
     }
 
-    private void ApplyMovementToThePlayer()
+    private void PerformHorizontalMovement()
     {
         //Horizontal movement
         if (Math.Abs(_inputHorizontal) > 0)
@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void HandleJump()
+    private void PerformVerticalMovement()
     {
         //Vertical movement
         if (_jump && CheckGround())
