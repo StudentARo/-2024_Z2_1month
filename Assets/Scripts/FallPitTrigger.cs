@@ -2,14 +2,15 @@ using UnityEngine;
 
 public class FallPitTrigger : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject respawnPoint;
-    
+    [SerializeField] private GameObject respawnPoint;
+
+    [SerializeField] private int healthPenalty = 1;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            this.RespawnPlayer();
+            this.RespawnPlayer(collision);
         }
         else
         {
@@ -17,21 +18,24 @@ public class FallPitTrigger : MonoBehaviour
         }
     }
 
-    private void RespawnPlayer()
+    private void RespawnPlayer(Collider2D playerCollider)
     {
-        var playerGameObject = GameObject.FindGameObjectWithTag("Player");
+        var playerGameObject = playerCollider.gameObject;
 
         if (playerGameObject == null)
         {
             return;
         }
 
+        var playerHealth = playerCollider.GetComponent<PlayerHealth>();
+        playerHealth.TakeDamage(healthPenalty);
+
         if (respawnPoint != null)
         {
             playerGameObject.transform.position = respawnPoint.transform.position;
             return;
         }
-        
+
         var fallbackRespawnPoint = GameObject.FindGameObjectWithTag("Respawn");
 
         if (fallbackRespawnPoint == null)
@@ -39,7 +43,7 @@ public class FallPitTrigger : MonoBehaviour
             Destroy(playerGameObject);
             return;
         }
-            
+
         playerGameObject.transform.position = fallbackRespawnPoint.transform.position;
     }
 }
