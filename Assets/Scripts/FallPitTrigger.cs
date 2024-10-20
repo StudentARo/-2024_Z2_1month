@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class FallPitTrigger : MonoBehaviour
 {
-    public GameObject respawnPoint;
+    [SerializeField]
+    private GameObject respawnPoint;
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
