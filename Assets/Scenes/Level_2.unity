@@ -2429,6 +2429,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6357792966154425176, guid: 9d4315dabe5f05a4cb26c2533f96209c, type: 3}
+      propertyPath: triggerables.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6357792966154425176, guid: 9d4315dabe5f05a4cb26c2533f96209c, type: 3}
+      propertyPath: triggerables.Array.data[0]
+      value: 
+      objectReference: {fileID: 7115040072130849821}
     - target: {fileID: 9125645502010298871, guid: 9d4315dabe5f05a4cb26c2533f96209c, type: 3}
       propertyPath: m_Name
       value: ZoneTrigger
@@ -2486,6 +2494,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6148270004498354184, guid: f9df82dfde14bdf4f8b5284f688f724d, type: 3}
+      propertyPath: spawnedPrefab
+      value: 
+      objectReference: {fileID: 9021736136960030464, guid: 9dfc1db32decd7348be06cb45e554b9d, type: 3}
     - target: {fileID: 6257440076417556443, guid: f9df82dfde14bdf4f8b5284f688f724d, type: 3}
       propertyPath: m_Name
       value: TriggerableSpawner
@@ -2495,6 +2507,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9df82dfde14bdf4f8b5284f688f724d, type: 3}
+--- !u!114 &7115040072130849821 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6148270004498354184, guid: f9df82dfde14bdf4f8b5284f688f724d, type: 3}
+  m_PrefabInstance: {fileID: 7115040072130849820}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54cc9b8bc8757de45b138318b1fc165e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
