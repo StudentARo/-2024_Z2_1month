@@ -8,31 +8,25 @@ public class FallPitTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            this.RespawnPlayer(collision);
-        }
-        else
-        {
-            Destroy(collision.gameObject);
+            this.RespawnPlayer(collision.gameObject);
         }
     }
 
-    private void RespawnPlayer(Collider2D playerCollider)
+    private void RespawnPlayer(GameObject player)
     {
-        var playerGameObject = playerCollider.gameObject;
-
-        if (playerGameObject == null)
+        if (player == null)
         {
             return;
         }
 
-        var playerHealth = playerCollider.GetComponent<PlayerHealth>();
+        var playerHealth = player.GetComponent<PlayerHealth>();
         playerHealth.TakeDamage(healthPenalty);
 
         if (respawnPoint != null)
         {
-            playerGameObject.transform.position = respawnPoint.transform.position;
+            player.transform.position = respawnPoint.transform.position;
             return;
         }
 
@@ -40,10 +34,10 @@ public class FallPitTrigger : MonoBehaviour
 
         if (fallbackRespawnPoint == null)
         {
-            Destroy(playerGameObject);
+            Destroy(player);
             return;
         }
 
-        playerGameObject.transform.position = fallbackRespawnPoint.transform.position;
+        player.transform.position = fallbackRespawnPoint.transform.position;
     }
 }

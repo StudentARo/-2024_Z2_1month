@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 133389184}
   - component: {fileID: 133389188}
   - component: {fileID: 133389187}
+  - component: {fileID: 133389189}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -421,6 +422,19 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.08}
   m_Size: {x: 1, y: 1.31}
   m_Direction: 0
+--- !u!114 &133389189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133389182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d7de5d7df59efd489c2405a1422ba87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialHealth: 3
 --- !u!1 &314123270
 GameObject:
   m_ObjectHideFlags: 3
@@ -648,7 +662,7 @@ GameObject:
   - component: {fileID: 646497138}
   m_Layer: 6
   m_Name: GroundCheck Collider(Trig)
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
