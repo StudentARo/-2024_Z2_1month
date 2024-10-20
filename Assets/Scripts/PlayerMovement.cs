@@ -13,8 +13,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private BoxCollider2D _groundCheck;  //This stores collider 'groundCheck' attached as component to the Player
     [SerializeField] private LayerMask _groundLayer; //This stores Layer related to what's considered 'Ground' Layer
     private float _inputHorizontal; //This stores input value for horizontal movement from Human Player
-    private float _inputVertical; //This stores input value for horizontal movement from Human Player
-    private bool _isGrounded;   //This is used for checking wheather Player is standing on 'ground' (object within "Ground" Layer)
+    private bool _isGrounded;   //For testing purposes, stores value for being grounded
+    private bool _jump; //This stores input value for horizontal movement from Human Player
+    private bool _doubleJump;
     
     void Awake()
     {
@@ -22,12 +23,13 @@ public class PlayerMovement : MonoBehaviour
     }
     void FixedUpdate()
     {
-        ApplyMovementToThePlayer();
         ApplyFriction();
     }
     private void Update()
     {
         getInputs();
+        ApplyMovementToThePlayer();
+        HandleJump();
     }
 
     private void ApplyMovementToThePlayer()
@@ -41,18 +43,27 @@ public class PlayerMovement : MonoBehaviour
             float direction = Mathf.Sign(_inputHorizontal);
             transform.localScale = new Vector3(direction, 1, 1);
         }
-        
+    }
+
+    private void HandleJump()
+    {
         //Vertical movement
-        if (Math.Abs(_inputVertical) > 0 && CheckGround())
+        if (_jump && CheckGround())
         {
-            _rigidBody2D.velocity = new Vector2(_rigidBody2D.velocity.x,_inputVertical * _jumpForce);
+            _rigidBody2D.velocity = new Vector2(_rigidBody2D.velocity.x,_jumpForce);
+            _doubleJump = true;
+        } 
+        else if (_jump && _doubleJump)
+        {
+            _rigidBody2D.velocity = new Vector2(_rigidBody2D.velocity.x,_jumpForce);
+            _doubleJump = false;
         }
     }
 
     private void ApplyFriction()
     {
         //Checks if Player is standing on the ground and applies drag force (friction)
-        if (CheckGround() && _inputHorizontal == 0 && _inputVertical == 0)
+        if (CheckGround() && _inputHorizontal == 0)
         {
             _rigidBody2D.velocity *= _dragForce;
         }
@@ -61,12 +72,11 @@ public class PlayerMovement : MonoBehaviour
     private void getInputs()
     {
         _inputHorizontal = Input.GetAxisRaw("Horizontal");
-        _inputVertical = Input.GetAxisRaw("Vertical");
+        _jump = Input.GetKeyDown(KeyCode.UpArrow);
     }
 
     private bool CheckGround()
     {
         return Physics2D.OverlapAreaAll(_groundCheck.bounds.min, _groundCheck.bounds.max, _groundLayer).Length > 0;
     }
-    
 }
