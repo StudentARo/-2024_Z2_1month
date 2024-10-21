@@ -512,8 +512,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lives: 3
-  coins: 0
   livesDisplay: {fileID: 724239403}
+  coins: 0
   coinsDisplay: {fileID: 359516611}
 --- !u!4 &944130573
 Transform:
