@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7398c4542eab9874d8d3395919e1d471, type: 3}
   m_Name: Health Potion config
   m_EditorClassIdentifier: 
-  Name: 
-  Description: 
-  UISprite: {fileID: 0}
-  HealAmount: 0
+  Name: Health Potion
+  Description: Restores 1 health point.
+  UISprite: {fileID: 21300000, guid: 4c7ea28387b823747af5423642ada5d2, type: 3}
+  HealAmount: 1
