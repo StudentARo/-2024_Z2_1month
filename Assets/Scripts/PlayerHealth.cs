@@ -1,9 +1,10 @@
 using UnityEngine;
+using Player;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField]
-    private int initialHealth = 3;
+    [SerializeField] private PlayerConfig _playerConfig;
+    [SerializeField] private int initialHealth = 3;
 
     private int _currentHealth;
 
