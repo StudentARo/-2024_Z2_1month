@@ -5,7 +5,7 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private PlayerConfig _playerConfig;
     [SerializeField] private int initialHealth = 3;
-    public int _currentHealth;
+    public int _currentHealth;  //As public for testing purposes
 
     private void Start ()
     {
