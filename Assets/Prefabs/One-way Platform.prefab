@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3781689001934947786}
   - component: {fileID: 5567944289845845946}
   - component: {fileID: 7179017267708173623}
+  - component: {fileID: 8075021575357486293}
   - component: {fileID: 8416615541107124299}
   m_Layer: 7
   m_Name: One-way Platform
@@ -112,6 +113,56 @@ PolygonCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.95}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 1, y: 0.4}
+      - {x: 0, y: 0.3}
+      - {x: 0, y: 0}
+      - {x: 2, y: 0}
+      - {x: 2, y: 0.3}
+  m_UseDelaunayMesh: 0
+--- !u!60 &8075021575357486293
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3923549180701583667}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,7 +193,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f06b5e2425b80c4a9e628401d0f9302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxCollider2D: {fileID: 5567944289845845946}
+  platformBoxCollider2D: {fileID: 5567944289845845946}
+  solidPlatformPolygonCollider2D: {fileID: 7179017267708173623}
+  nonSolidPlatformPolygonCollider2D: {fileID: 8075021575357486293}
 --- !u!1 &6195757191049258964
 GameObject:
   m_ObjectHideFlags: 0

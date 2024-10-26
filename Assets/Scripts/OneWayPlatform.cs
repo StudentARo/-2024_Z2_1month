@@ -5,29 +5,32 @@ using UnityEngine;
 
 public class OneWayPlatform : MonoBehaviour
 {
-    [SerializeField] private BoxCollider2D boxCollider2D;
-
+    [SerializeField] private BoxCollider2D platformBoxCollider2D;
+    [SerializeField] private PolygonCollider2D solidPlatformPolygonCollider2D;
+    [SerializeField] private PolygonCollider2D nonSolidPlatformPolygonCollider2D;
+    
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            boxCollider2D.enabled = false;
+            print("Pressed down");
+            platformBoxCollider2D.enabled = false;
         }
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.CompareTag("Player"))
+        if (col.gameObject.CompareTag("Player") && col.IsTouching(solidPlatformPolygonCollider2D))
         {
-            boxCollider2D.enabled = true;
+            platformBoxCollider2D.enabled = true;
         }
     }
 
     private void OnTriggerExit2D(Collider2D col)
     {
-        if (col.gameObject.CompareTag("Player"))
+        if (col.gameObject.CompareTag("Player") && col.IsTouching(nonSolidPlatformPolygonCollider2D))
         {
-            boxCollider2D.enabled = false;
+            platformBoxCollider2D.enabled = false;
         }
     }
 }
