@@ -27,6 +27,7 @@ public class UIBehaviour : MonoBehaviour
     void Start()
    {
         coinsDisplay.text = coins.ToString();
+      
    }
     private void Update()
     {
@@ -54,7 +55,7 @@ public class UIBehaviour : MonoBehaviour
     {
         if (i < lives)
         {
-            hpImages[i].enabled = false;
+            hpImages[i].enabled = true;
         }
         else
         {
