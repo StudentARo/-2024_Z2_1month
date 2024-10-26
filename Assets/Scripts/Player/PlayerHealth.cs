@@ -1,7 +1,7 @@
 using UnityEngine;
 using Player;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth: MonoBehaviour
 {
     [SerializeField] private PlayerConfig _playerConfig;
     [SerializeField] private int initialHealth = 3;
