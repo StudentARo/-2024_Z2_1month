@@ -13,7 +13,6 @@ public class OneWayPlatform : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            print("Pressed down");
             platformBoxCollider2D.enabled = false;
         }
     }
