@@ -13,13 +13,18 @@ public class UIBehaviour : MonoBehaviour
 
     [SerializeField]
     int lives;
-    
+
+    [SerializeField]
+    int keys;
+
     [SerializeField]
     int coins = 0;
 
     [SerializeField] 
     TextMeshProUGUI coinsDisplay;
-   
+    [SerializeField]
+    TextMeshProUGUI keysDisplay;
+
     public Image[] hpImages;
     public Sprite hpActive;
     public Sprite hpDisable;
@@ -27,7 +32,7 @@ public class UIBehaviour : MonoBehaviour
     void Start()
    {
         coinsDisplay.text = coins.ToString();
-      
+        keysDisplay.text = keys.ToString();
    }
     private void Update()
     {
@@ -71,10 +76,19 @@ public class UIBehaviour : MonoBehaviour
         }
     }
 
-    public void addCoins(int coinsAdd)
+    public void addCoins(int coinsAdd, Collider2D collider)
     {
-        coins += coinsAdd;
-        coinsDisplay.text = coins.ToString();
+        if (collider.gameObject.CompareTag("Player"))
+        {
+            coinsAdd += coinsAdd;
+        }
+           
+        coinsDisplay.text = coinsAdd.ToString();
+    }
+    public void addKeys(int keysAdd)
+    {
+        keys += keysAdd;
+        keysDisplay.text = keys.ToString();
     }
     public void antiDuplicateUI(){
     int playerUINumber = FindObjectsOfType<UIBehaviour>().Length;
