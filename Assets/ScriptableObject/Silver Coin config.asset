@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f5302733f499d9449e56605cd944ad8, type: 3}
   m_Name: Silver Coin config
   m_EditorClassIdentifier: 
-  ScorePointsAmount: 1
+  ScorePointsAmount: 10
