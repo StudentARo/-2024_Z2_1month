@@ -26,3 +26,4 @@ MonoBehaviour:
   AnimatorGetHitTrigerName: gettingHit
   AnimatorDieTrigerName: die
   ReturningToPatrolDelay: 4
+  DestinationReachDistanceCheck: 0.75
