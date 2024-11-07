@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8091115443356944454}
   m_Layer: 9
-  m_Name: Enemy_FierceTooth_Patrol
+  m_Name: Enemy_FierceTooth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 5096757026293785673}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.53, y: -0.66, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -370,11 +370,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyConfig: {fileID: 11400000, guid: 723cc47f77538ca40b8eec14db028a60, type: 2}
-  _shouldPatrol: 0
+  _shouldPatrol: 1
   _shouldChase: 0
   _defenseZone: {fileID: 1652122022360335796}
-  _patrolPointPrefab: {fileID: 0}
-  _playerTransform: {fileID: 0}
+  _patrolPointPrefab: {fileID: 562444228983559536, guid: 1a8e54c9bf1e24547a2bf0c6c4e55503, type: 3}
+  _playerTransform: {fileID: 8999124442859534197, guid: 1aadd5c33d81d3743b4e36e0bc389bfb, type: 3}
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64

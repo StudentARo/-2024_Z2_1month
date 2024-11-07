@@ -78,12 +78,12 @@ public class EnemyMeleeTypeAttacks : MonoBehaviour
         return true;
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(_inRangeCollider.bounds.center + transform.right * _attackMeleeRange * transform.localScale.x * -1 * _attackMeleeRangeDistance, 
-            new Vector3(_inRangeCollider.bounds.size.x * _attackMeleeRange, _inRangeCollider.bounds.size.y, _inRangeCollider.bounds.size.z));
-    }
+    // private void OnDrawGizmos()
+    // {
+    //     Gizmos.color = Color.red;
+    //     Gizmos.DrawWireCube(_inRangeCollider.bounds.center + transform.right * _attackMeleeRange * transform.localScale.x * -1 * _attackMeleeRangeDistance, 
+    //         new Vector3(_inRangeCollider.bounds.size.x * _attackMeleeRange, _inRangeCollider.bounds.size.y, _inRangeCollider.bounds.size.z));
+    // }
 
     private void DamagePlayer() //See animator events
     {

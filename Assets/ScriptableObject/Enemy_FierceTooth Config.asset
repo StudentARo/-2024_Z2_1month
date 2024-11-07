@@ -25,5 +25,5 @@ MonoBehaviour:
   AnimatorMeleeAttackTrigerName: meleeAttack
   AnimatorGetHitTrigerName: gettingHit
   AnimatorDieTrigerName: die
-  ReturningToPatrolDelay: 4
+  ReturningToPatrolDelay: 3
   DestinationReachDistanceCheck: 0.75

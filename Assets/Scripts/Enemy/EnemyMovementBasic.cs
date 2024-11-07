@@ -24,16 +24,16 @@ public class EnemyMovementBasic : MonoBehaviour
     private Collider2D _enemyBoxCollider;
     
     private float _moveSpeed;   //Enemy's move speed
-    public float _idleTimer = Mathf.Infinity;
+    private float _idleTimer = Mathf.Infinity;
     private float _destinationReachDistanceCheck;
-    [Range(-1,1)] public int _movingDirection; //Main movement controller [-1 = moving left (-x), 0 = not moving, 1 = moving right (+x)] 
+    [Range(-1,1)] private int _movingDirection; //Main movement controller [-1 = moving left (-x), 0 = not moving, 1 = moving right (+x)] 
     
     private GameObject _leftedgeDefenseZonePoint;
     private GameObject _rightedgeDefenseZonePoint;
-    public Transform _currentDestinationPoint;
-    public Transform _lastPatrolPoint;
-    public float _returningToPatrolDelay;
-    public bool _isSwitchingDestination;
+    private Transform _currentDestinationPoint;
+    private Transform _lastPatrolPoint;
+    private float _returningToPatrolDelay;
+    private bool _isSwitchingDestination;
     
     void Awake()
     {
