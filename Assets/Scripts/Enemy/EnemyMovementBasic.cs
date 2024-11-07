@@ -24,17 +24,16 @@ public class EnemyMovementBasic : MonoBehaviour
     private Collider2D _enemyBoxCollider;
     
     private float _moveSpeed;   //Enemy's move speed
-    private float _idlingDuration;  //Enemy's idling duration time
-    private float _idleTimer = Mathf.Infinity;
+    public float _idleTimer = Mathf.Infinity;
     private float _destinationReachDistanceCheck;
-    [Range(-1,1)] private int _movingDirection; //Main movement controller [-1 = moving left (-x), 0 = not moving, 1 = moving right (+x)] 
+    [Range(-1,1)] public int _movingDirection; //Main movement controller [-1 = moving left (-x), 0 = not moving, 1 = moving right (+x)] 
     
     private GameObject _leftedgeDefenseZonePoint;
     private GameObject _rightedgeDefenseZonePoint;
-    private Transform _currentDestinationPoint;
-    private Transform _lastPatrolPoint;
-    private float _returningToPatrolDelay;
-    private bool _returningToPatrol;
+    public Transform _currentDestinationPoint;
+    public Transform _lastPatrolPoint;
+    public float _returningToPatrolDelay;
+    public bool _isSwitchingDestination;
     
     void Awake()
     {
@@ -45,27 +44,36 @@ public class EnemyMovementBasic : MonoBehaviour
         _destinationReachDistanceCheck = (_enemyBoxCollider.bounds.size.x / 2) + _enemyConfig.DestinationReachDistanceCheck;
         
         _moveSpeed = _enemyConfig.MoveSpeed;
-        _idlingDuration = _enemyConfig.IdlingDuration;
         _idleTimer = Random.Range(0, _enemyConfig.IdlingDuration);  //This randomizes initial _idleTimer, so enemy starts to move at diffrent times
         
         setDefenseZonePatrolPoints();
         _currentDestinationPoint = gameObject.transform;
-        
-        _movingDirection = Random.Range(0, 2) * 2 - 1;  //This sets initial _movingDirection to either -1 or 1 (excluding 0)
 
         _returningToPatrolDelay = _enemyConfig.ReturningToPatrolDelay;
-        _returningToPatrol = false;
+        _isSwitchingDestination = false;
     }
     
     void Update()
     {
+        _idleTimer += Time.deltaTime;
+        
+        if (CheckPlayerNearby() || _isSwitchingDestination)
+        {
+                _idleTimer = 0;
+            _isSwitchingDestination = false;
+        }
+        
         if (CheckPlayerNearby() && CheckPlayerBreachedArea(_playerTransform, _defenseZone, _playerLayer))
         {
             ResolvePlayerFacingDirection();
         }
         else
         {
-            if (_shouldChase && _shouldPatrol)
+            if (_idleTimer <= _returningToPatrolDelay)
+            {
+                _currentDestinationPoint = gameObject.transform;
+            }
+            else if (_shouldChase && _shouldPatrol)
             {
                 if (CheckPlayerBreachedArea(_playerTransform, _defenseZone, _playerLayer))
                 {
@@ -92,6 +100,12 @@ public class EnemyMovementBasic : MonoBehaviour
                 _currentDestinationPoint =  SelectPatrollingPoint();
             }
         }
+        
+        if (!_isSwitchingDestination && _idleTimer > _returningToPatrolDelay)
+        {
+            FlipSprite();
+        }
+        
         ResolveMovingDirection(gameObject.transform, _currentDestinationPoint);
         Move();
     }
@@ -120,15 +134,19 @@ public class EnemyMovementBasic : MonoBehaviour
     private Transform SelectPatrollingPoint()
     {
         if (hasReachedDestination() &&
-            _currentDestinationPoint.position.x == _leftedgeDefenseZonePoint.transform.position.x)
+            _currentDestinationPoint.position.x == _leftedgeDefenseZonePoint.transform.position.x && 
+            _lastPatrolPoint != _leftedgeDefenseZonePoint)
         {
             _lastPatrolPoint = _rightedgeDefenseZonePoint.transform;
+            _isSwitchingDestination = true;
             return _rightedgeDefenseZonePoint.transform;
         }
         else if (hasReachedDestination() &&
-            _currentDestinationPoint.position.x == _rightedgeDefenseZonePoint.transform.position.x)
+            _currentDestinationPoint.position.x == _rightedgeDefenseZonePoint.transform.position.x &&
+            _lastPatrolPoint != _rightedgeDefenseZonePoint)
         {
             _lastPatrolPoint = _leftedgeDefenseZonePoint.transform;
+            _isSwitchingDestination = true;
             return _leftedgeDefenseZonePoint.transform;
         } 
         else if ((_currentDestinationPoint.position.x != _leftedgeDefenseZonePoint.transform.position.x) &&
@@ -150,7 +168,6 @@ public class EnemyMovementBasic : MonoBehaviour
         {
             return _lastPatrolPoint;
         }
-        
     }
     
     private bool hasReachedDestination()
@@ -200,17 +217,16 @@ public class EnemyMovementBasic : MonoBehaviour
 
     private void Move()
     {
-        if (_movingDirection != 0)
-        {
-            _enemyAnimator.SetBool(_enemyConfig.AnimatorMoveTrigerName, true);
-            _rigidBody2D.velocity = new Vector2( _moveSpeed * _movingDirection, _rigidBody2D.velocity.y);
-            FlipSprite();
-            return;
-        }
+            if (_movingDirection != 0)
+            {
+                _enemyAnimator.SetBool(_enemyConfig.AnimatorMoveTrigerName, true);
+                _rigidBody2D.velocity = new Vector2( _moveSpeed * _movingDirection, _rigidBody2D.velocity.y);
+                return;
+            } 
+            
             //not moving
             _enemyAnimator.SetBool(_enemyConfig.AnimatorMoveTrigerName, false);
             _rigidBody2D.velocity = new Vector2( _moveSpeed * _movingDirection, _rigidBody2D.velocity.y);
-        
     }
     
     private void FlipSprite()
