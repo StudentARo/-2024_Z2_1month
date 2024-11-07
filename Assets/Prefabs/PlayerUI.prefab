@@ -349,18 +349,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33666c5e757c90a47a0eb4cd59f82377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 3
-  lives: 3
-  keys: 0
-  coins: 0
-  coinsDisplay: {fileID: 0}
-  keysDisplay: {fileID: 0}
-  hpImages:
-  - {fileID: 1212670045326357362}
-  - {fileID: 3059046224367243971}
-  - {fileID: 2406745410856884949}
-  hpActive: {fileID: 21300000, guid: 5e82e4de734a8f14fbbfd9fa7d6dc6b4, type: 3}
-  hpDisable: {fileID: 21300000, guid: 25b1213513cd14d4d8cba2aa42dbebc6, type: 3}
+  scoreText: {fileID: 6952985393040959030}
+  heart1: {fileID: 1212670045326357362}
+  heart2: {fileID: 3059046224367243971}
+  heart3: {fileID: 2406745410856884949}
+  fullHeart: {fileID: 21300000, guid: 5e82e4de734a8f14fbbfd9fa7d6dc6b4, type: 3}
+  emptyHeart: {fileID: 21300000, guid: eb29bdb043b9d4a44a012f1520ff6a54, type: 3}
+  heartIcons: []
 --- !u!1 &4548707601074350986
 GameObject:
   m_ObjectHideFlags: 0

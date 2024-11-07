@@ -2,21 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Player;
+
+[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class BarrelMovement : MonoBehaviour
 {
     [SerializeField]
-    private float barrellSpeed = 1f;
+    private float barrelSpeed = 1f; //barell speed
     [SerializeField]
-    private Rigidbody2D barrellBody;
+    private Rigidbody2D barrelBody;
     [SerializeField]
-    private float force;
-    private int barellDmg;
+    private float force = 25f; //physics throw player variable
+    private int barrelDamage = 1;  // Ustawiamy obra¿enia na 1, aby odbieraæ 1 punkt HP
     private Transform player;
-    // Start is called before the first frame update
+
     void Start()
     {
-        barrellBody = GetComponent<Rigidbody2D>();
-        barrellBody.velocity = transform.right * barrellSpeed;
+        barrelBody = GetComponent<Rigidbody2D>();
+        barrelBody.velocity = transform.right * barrelSpeed;
+
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
         {
@@ -24,41 +28,37 @@ public class BarrelMovement : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (player != null)
         {
             Vector2 direction = (player.position - transform.position).normalized;
-            transform.position += (Vector3)direction * barrellSpeed * Time.deltaTime;
+            transform.position += (Vector3)direction * barrelSpeed * Time.deltaTime;
         }
     }
-    void BarrellCollision2D(Collision2D collision)
-    {
 
-        if (collision.gameObject.CompareTag("Wall"))
+    //checking if we are colliding with player and throwing him away with damage.
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerHealth playerHP = collision.gameObject.GetComponent<PlayerHealth>();
+            if (playerHP != null)
+            {
+                playerHP.TakeDamage(barrelDamage);
+            }
+
+            Vector2 pushDirection = (collision.transform.position - transform.position).normalized;
+            Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
+            if (playerRb != null)
+            {
+                playerRb.AddForce(pushDirection * force, ForceMode2D.Impulse);
+            }
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Platform") || collision.gameObject.CompareTag("Wall"))
         {
             Destroy(gameObject);
         }
-        else if (collision.gameObject.CompareTag("Player"))
-        {
-          
-               
-                PlayerHealth playerHP = collision.gameObject.GetComponent<PlayerHealth>();
-                if (playerHP != null)
-                {
-                    playerHP.TakeDamage(barellDmg);
-                }
-
-              
-                Vector2 pushDirection = (collision.transform.position - transform.position).normalized;
-            
-                Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
-                if (playerRb != null)
-                {
-                    playerRb.AddForce(pushDirection * force, ForceMode2D.Impulse);
-                    Destroy(gameObject);
-                }
-            }
-        }
+    }
 }

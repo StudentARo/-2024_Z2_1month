@@ -5,7 +5,9 @@ using Player;
 public class PlayerScore : MonoBehaviour
 {
     [SerializeField] private PlayerConfig _playerConfig;
+    public static event Action<int> OnScoreUpdated;
     public int _currentScore;   //As public for testing purposes
+    internal readonly int coins;
 
     private void Start()
     {
@@ -20,5 +22,6 @@ public class PlayerScore : MonoBehaviour
         }
 
         _currentScore += pointsAmount;
+        OnScoreUpdated?.Invoke(_currentScore);
     }
 }

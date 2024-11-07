@@ -6,10 +6,11 @@ public class PlayerHealth: MonoBehaviour
 {
     [SerializeField] private PlayerConfig _playerConfig;
     private int _currentHealth;
-
+    public static event Action<int> OnHealthUpdated;
     private void Start ()
     {
         _currentHealth = _playerConfig.BaseHealth;
+        OnHealthUpdated?.Invoke(_currentHealth);
     }
     
     public void Heal(int healAmount)
@@ -22,15 +23,18 @@ public class PlayerHealth: MonoBehaviour
         if (_currentHealth + healAmount > _playerConfig.MaxHealth)
         {
             _currentHealth = _playerConfig.MaxHealth;
-            return;
         }
-
-        _currentHealth += healAmount;
+        else
+        {
+            _currentHealth += healAmount;
+        }
+        OnHealthUpdated?.Invoke(_currentHealth);
     }
     public void TakeDamage(int damage)
     {
         if (damage < 0)
         {
+            OnHealthUpdated?.Invoke(_currentHealth);
             return;
         }
 
@@ -38,7 +42,9 @@ public class PlayerHealth: MonoBehaviour
         
         if (_currentHealth < _playerConfig.MinHealth)
         {
+            _currentHealth = _playerConfig.MinHealth;
             Destroy(gameObject);
         }
+        OnHealthUpdated?.Invoke(_currentHealth);
     }
 }

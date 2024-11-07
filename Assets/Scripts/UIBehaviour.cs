@@ -4,111 +4,66 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using SilverCoin;
+using Collectibles;
 using static UnityEditor.Timeline.TimelinePlaybackControls;
+using System;
+using Player;
+using System.Data.Common;
+
 
 public class UIBehaviour : MonoBehaviour
 {
+    public Text scoreText;  // Referencja do pola tekstowego UI
+    private int initialScore;
     [SerializeField]
-    int hp;
 
+    //Hearths fields reference
+    public Image heart1;        
     [SerializeField]
-    int lives;
-
-    [SerializeField]
-    int keys;
-
-    [SerializeField]
-    int coins = 0;
-
+    public Image heart2;        
     [SerializeField] 
-    TextMeshProUGUI coinsDisplay;
+    public Image heart3;        
+    
+    //Hearth UI Referece
     [SerializeField]
-    TextMeshProUGUI keysDisplay;
+    public Sprite fullHeart;   
+    [SerializeField]
+    public Sprite emptyHeart;
 
-    public Image[] hpImages;
-    public Sprite hpActive;
-    public Sprite hpDisable;
+    //Heart sprites array
+    [SerializeField]
+    public Image[] heartIcons;
 
-    void Start()
-   {
-        coinsDisplay.text = coins.ToString();
-        keysDisplay.text = keys.ToString();
-   }
-    private void Update()
+    //updating score and HP
+    private void OnEnable()
     {
-        LivesCountCheck();
-        for (int i = 0; i < hpImages.Length; i++)
-        {
-            disableHeartIcon(i);
-            useSpriteIcon(i);
-        }
+        scoreText.text = initialScore.ToString();
+        PlayerScore.OnScoreUpdated += UpdateScoreUI;
+        PlayerHealth.OnHealthUpdated += UpdateHealthUI;
+    }
+    //Disabling updating hp and score
+    private void OnDisable()
+    {
+        PlayerScore.OnScoreUpdated -= UpdateScoreUI;
+        PlayerHealth.OnHealthUpdated -= UpdateHealthUI;
     }
 
-    private void useSpriteIcon(int i)
+    private void UpdateScoreUI(int newScore)
     {
-        if (i < hp)
-        {
-            hpImages[i].sprite = hpActive;
-        }
-        else
-        {
-            hpImages[i].sprite = hpDisable;
-        }
+        scoreText.text = newScore.ToString();
     }
-
-    private void disableHeartIcon(int i)
+   //Updating HP Icons
+    private void UpdateHealthUI(int currentHealth)
     {
-        if (i < lives)
+        // Aktualizacja ikon serc na podstawie zdrowia
+        for (int i = 0; i < heartIcons.Length; i++)
         {
-            hpImages[i].enabled = true;
+            heartIcons[i].enabled = i < currentHealth;  
+            heart1.sprite = currentHealth >= 1 ? fullHeart : emptyHeart;
+            heart2.sprite = currentHealth >= 2 ? fullHeart : emptyHeart;
+            heart3.sprite = currentHealth >= 3 ? fullHeart : emptyHeart;
         }
-        else
-        {
-            hpImages[i].enabled = false;
-        }
+       
     }
-
-    private void LivesCountCheck()
-    {
-        if (hp > lives)
-        {
-            hp = lives;
-        }
-    }
-
-    public void addCoins(int coinsAdd, Collider2D collider)
-    {
-        if (collider.gameObject.CompareTag("Player"))
-        {
-            coinsAdd += coinsAdd;
-        }
-           
-        coinsDisplay.text = coinsAdd.ToString();
-    }
-    public void addKeys(int keysAdd)
-    {
-        keys += keysAdd;
-        keysDisplay.text = keys.ToString();
-    }
-    public void antiDuplicateUI(){
-    int playerUINumber = FindObjectsOfType<UIBehaviour>().Length;
-    if(playerUINumber <1){
-        DontDestroyOnLoad(gameObject);
-    }else{
-        Destroy(gameObject);
-    }
-}
-
-   public void Death(){
-        if(lives > 1)
-        {
-        int sceneIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(sceneIndex);
-        }
-        else
-        {
-        SceneManager.LoadScene(0);
-        Destroy(gameObject);
-        }
-   }
 }
