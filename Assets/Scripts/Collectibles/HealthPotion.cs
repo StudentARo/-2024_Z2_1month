@@ -13,5 +13,4 @@ namespace Potions
             Destroy(gameObject);
         }
     }
-    
 }

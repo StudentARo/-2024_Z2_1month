@@ -18,14 +18,14 @@ public class UIBehaviour : MonoBehaviour
     private int initialScore;
     [SerializeField]
 
-    //Hearths fields reference
+    //Hearts fields reference
     public Image heart1;        
     [SerializeField]
     public Image heart2;        
     [SerializeField] 
     public Image heart3;        
     
-    //Hearth UI Referece
+    //Heart UI Referece
     [SerializeField]
     public Sprite fullHeart;   
     [SerializeField]
@@ -56,7 +56,6 @@ public class UIBehaviour : MonoBehaviour
    //Updating HP Icons
     private void UpdateHealthUI(int currentHealth)
     {
-        // Aktualizacja ikon serc na podstawie zdrowia
         for (int i = 0; i < heartIcons.Length; i++)
         {
             heartIcons[i].enabled = i < currentHealth;  
