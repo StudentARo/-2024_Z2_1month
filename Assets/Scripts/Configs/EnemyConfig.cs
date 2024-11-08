@@ -29,6 +29,7 @@ namespace Enemy
         
         [Header("Enemy Patrolling values")]
         public float ReturningToPatrolDelay;
+        public float DestinationReachDistanceCheck; //For melee type enemies, the value should be the same as 'AttackMeleeRangeDistance'
         
     }
     

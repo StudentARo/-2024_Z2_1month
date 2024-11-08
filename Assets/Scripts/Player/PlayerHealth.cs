@@ -11,12 +11,7 @@ public class PlayerHealth: MonoBehaviour
     {
         _currentHealth = _playerConfig.BaseHealth;
     }
-
-    private void Update()
-    {
-        ManagePlayer();
-    }
-
+    
     public void Heal(int healAmount)
     {
         if (healAmount < 0)
@@ -40,10 +35,7 @@ public class PlayerHealth: MonoBehaviour
         }
 
         _currentHealth -= damage;
-    }
-
-    private void ManagePlayer()
-    {
+        
         if (_currentHealth < _playerConfig.MinHealth)
         {
             Destroy(gameObject);
