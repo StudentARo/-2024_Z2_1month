@@ -9,7 +9,10 @@ public class CannonBall : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        if (other.CompareTag("Player"))
+        {
+            GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        }
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
