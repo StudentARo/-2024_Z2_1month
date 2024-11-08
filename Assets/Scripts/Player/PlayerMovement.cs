@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
@@ -9,12 +8,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _jumpForce = 7.0f;  // Value for vertical movement
     [SerializeField] [Range(0.0f,50.0f)] private float _groundFriction = 0.8f;   //Value should be set in range of 0-1 (1 means no friction from 'ground', 0 means friction to high to move on 'ground') 
     [SerializeField] [Range(0.0f,10.0f)] private float _airFriction = 0.8f; 
+    [SerializeField] private float _coyoteTime = 0.2f;
     
     private Rigidbody2D _rigidBody2D;   //This stores rigidbody in order to affect Player movement using physics 
     private float _inputHorizontal; //This stores input value for horizontal movement from Human Player
     private bool _isJump; //This stores input value for vertical movement from Human Player
     private bool _isDoubleJumpPossible;   //This stores input value for vertical movement from Human Player
     private bool _isGrounded;
+    
+    private float _coyoteTimeCounter;
     
     [SerializeField]
     private ContactFilter2D contactFilter;
@@ -45,6 +47,15 @@ public class PlayerMovement : MonoBehaviour
     {
         CheckIsOnGround();
         GetInputs();
+
+        if (_isGrounded)
+        {
+            _coyoteTimeCounter = _coyoteTime;
+        }
+        else
+        {
+            _coyoteTimeCounter -= Time.deltaTime;
+        }
     }
 
     private void PerformHorizontalMovement()
@@ -63,12 +74,13 @@ public class PlayerMovement : MonoBehaviour
     private void PerformVerticalMovement()
     {
         //Vertical movement
-        if (_isJump && _isGrounded)
+        if (_isJump && _coyoteTimeCounter > 0)
         {
             _rigidBody2D.drag = 0;
             _rigidBody2D.velocity = new Vector2(_rigidBody2D.velocity.x, 0);
             _rigidBody2D.AddForce(_rigidBody2D.transform.up * _jumpForce, ForceMode2D.Impulse);
             _isDoubleJumpPossible = true;
+            _coyoteTimeCounter = 0;
         } 
         else if (_isJump && _isDoubleJumpPossible)
         {
