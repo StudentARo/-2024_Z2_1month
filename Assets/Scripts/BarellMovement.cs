@@ -15,7 +15,7 @@ public class BarrelMovement : MonoBehaviour
     private float force = 25f; //physics throw player variable
     private int barrelDamage = 1;  // Ustawiamy obra¿enia na 1, aby odbieraæ 1 punkt HP
     private Transform player;
-
+    public float rotationSpeed = 100f;
     void Start()
     {
         barrelBody = GetComponent<Rigidbody2D>();
@@ -30,11 +30,13 @@ public class BarrelMovement : MonoBehaviour
 
     void Update()
     {
+       
         if (player != null)
         {
             Vector2 direction = (player.position - transform.position).normalized;
             transform.position += (Vector3)direction * barrelSpeed * Time.deltaTime;
         }
+        transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
     }
 
     //checking if we are colliding with player and throwing him away with damage.
