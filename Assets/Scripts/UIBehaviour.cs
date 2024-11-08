@@ -35,12 +35,27 @@ public class UIBehaviour : MonoBehaviour
     [SerializeField]
     public Image[] heartIcons;
 
+    //Dead
+    [SerializeField]
+    public Text dead;
+    [SerializeField] 
+    private Text finishLevel;
+    PlayerHealth playerHealth;
+
+    public static UIBehaviour Instance; // singleton dla ³atwego dostêpu do UI
+    public GameObject levelCompleteMessage; // UI element dla komunikatu o ukoñczeniu poziomu
+
+    // public String initialDeadText = "";
+    //public String deadText = "You have died!";
     //updating score and HP
     private void OnEnable()
     {
+        playerHealth = FindObjectOfType<PlayerHealth>();
         scoreText.text = initialScore.ToString();
         PlayerScore.OnScoreUpdated += UpdateScoreUI;
         PlayerHealth.OnHealthUpdated += UpdateHealthUI;
+      //  initialDeadText = dead.ToString();
+        dead.gameObject.SetActive(false);
     }
     //Disabling updating hp and score
     private void OnDisable()
@@ -58,11 +73,18 @@ public class UIBehaviour : MonoBehaviour
     {
         for (int i = 0; i < heartIcons.Length; i++)
         {
-            heartIcons[i].enabled = i < currentHealth;  
+            //heartIcons[i].enabled = i < currentHealth;
             heart1.sprite = currentHealth >= 1 ? fullHeart : emptyHeart;
             heart2.sprite = currentHealth >= 2 ? fullHeart : emptyHeart;
             heart3.sprite = currentHealth >= 3 ? fullHeart : emptyHeart;
+           
         }
-       
+    }
+
+    public void ShowEndLevelMessage()
+    {
+        // W³¹cz komunikat o ukoñczeniu poziomu
+        finishLevel.gameObject.SetActive(true);
+        finishLevel.text = "Poziom ukoñczony! Przejœcie do kolejnego poziomu...";
     }
 }
