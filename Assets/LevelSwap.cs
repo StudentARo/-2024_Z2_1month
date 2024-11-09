@@ -7,11 +7,18 @@ using UnityEngine.SceneManagement;
 
 public class LevelSwap : MonoBehaviour
 {
+    public UIBehaviour uIBehaviour;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
        //checking Player Tag
         if (other.CompareTag("Player"))
         {
+            if (uIBehaviour == null)
+            {
+                return;
+            }
+            uIBehaviour.ShowLevelCompletedMessage();
             // get scene index
             int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
@@ -24,16 +31,16 @@ public class LevelSwap : MonoBehaviour
             }
             else
             {
-                Debug.Log("Nie ma nastêpnej sceny!");
+                Debug.Log("Scene does not exist");
             }
         }
     }
 
-    // Funkcja do za³adowania nastêpnej sceny
     private void LoadNextScene()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex + 1);
+        uIBehaviour.HideLevelCompletedMessage();
     }
 
     private void Update()
@@ -48,4 +55,5 @@ public class LevelSwap : MonoBehaviour
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex); // load actual scene
     }
+
 }

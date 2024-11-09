@@ -519,7 +519,7 @@ MonoBehaviour:
   - {fileID: 5826264693075736881}
   dead: {fileID: 6512894721963816911}
   finishLevel: {fileID: 0}
-  levelCompleteMessage: {fileID: 0}
+  levelCompleteMessage: {fileID: 7270775631245475003}
   displayTime: 2
 --- !u!1 &6177412764527642715
 GameObject:
