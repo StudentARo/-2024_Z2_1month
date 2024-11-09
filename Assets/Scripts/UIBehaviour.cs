@@ -111,6 +111,7 @@ public class UIBehaviour : MonoBehaviour
            
         }
     }
+
     public void ShowLevelCompletedMessage()
     {
         levelCompleteMessage.gameObject.SetActive(true); //showing text on screen
