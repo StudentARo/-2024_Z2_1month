@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private float _inputHorizontal; //This stores input value for horizontal movement from Human Player
     private bool _isJump; //This stores input value for vertical movement from Human Player
     private bool _isDoubleJumpPossible;   //This stores input value for vertical movement from Human Player
-    private bool _isGrounded;
+    public bool _isGrounded;
     
     private float _coyoteTimeCounter;
     
