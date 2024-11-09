@@ -11,7 +11,7 @@ public class OneWayPlatform : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
         {
             platformBoxCollider2D.enabled = false;
         }
