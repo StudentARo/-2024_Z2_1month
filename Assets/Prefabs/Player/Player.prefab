@@ -177,6 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab30ae082eea2d848b980e2ebfd633ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAnimator: {fileID: 7760197008946612477}
   _moveSpeed: 7
   _jumpForce: 16
   _groundFriction: 10
@@ -210,6 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerConfig: {fileID: 11400000, guid: e10a9b13bc6c539439bd9a684eb8dcf7, type: 2}
+  _playerAnimator: {fileID: 7760197008946612477}
 --- !u!114 &2243976995005337365
 MonoBehaviour:
   m_ObjectHideFlags: 0
