@@ -42,7 +42,7 @@ public class PlayerHealth: MonoBehaviour
         
         if (_currentHealth < _playerConfig.MinHealth)
         {
-            _currentHealth = _playerConfig.MinHealth;
+            _currentHealth = 0;
             Destroy(gameObject);
         }
         OnHealthUpdated?.Invoke(_currentHealth);

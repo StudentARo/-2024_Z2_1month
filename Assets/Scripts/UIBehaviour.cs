@@ -63,28 +63,34 @@ public class UIBehaviour : MonoBehaviour
         PlayerScore.OnScoreUpdated -= UpdateScoreUI;
         PlayerHealth.OnHealthUpdated -= UpdateHealthUI;
     }
-
+    private void Start()
+    {
+        //hidding field on game start
+        dead.gameObject.SetActive(false);
+    }
     private void UpdateScoreUI(int newScore)
     {
         scoreText.text = newScore.ToString();
     }
-   //Updating HP Icons
+    //Updating HP Icons
     private void UpdateHealthUI(int currentHealth)
     {
-        for (int i = 0; i < heartIcons.Length; i++)
-        {
-            //heartIcons[i].enabled = i < currentHealth;
-            heart1.sprite = currentHealth >= 1 ? fullHeart : emptyHeart;
-            heart2.sprite = currentHealth >= 2 ? fullHeart : emptyHeart;
-            heart3.sprite = currentHealth >= 3 ? fullHeart : emptyHeart;
-           
-        }
-    }
+        // setting hp icons to actual level
+        heart1.sprite = currentHealth >= 1 ? fullHeart : emptyHeart;
+        heart2.sprite = currentHealth >= 2 ? fullHeart : emptyHeart;
+        heart3.sprite = currentHealth >= 3 ? fullHeart : emptyHeart;
 
-    public void ShowEndLevelMessage()
-    {
-        // W³¹cz komunikat o ukoñczeniu poziomu
-        finishLevel.gameObject.SetActive(true);
-        finishLevel.text = "Poziom ukoñczony! Przejœcie do kolejnego poziomu...";
+        // if hp == 0 disable HP sprite and show "You are dead"
+        if (currentHealth <= 0)
+        {
+            heart1.sprite = emptyHeart; // if hp == 0 set emptyHeart icon
+            dead.gameObject.SetActive(true); // display "You are dead"
+            dead.text = "You are dead";
+        }
+        else
+        {
+            // disable information when hp is > than 0
+            dead.gameObject.SetActive(false);
+        }
     }
 }
