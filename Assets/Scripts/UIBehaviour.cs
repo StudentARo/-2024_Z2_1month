@@ -38,12 +38,15 @@ public class UIBehaviour : MonoBehaviour
     //Dead
     [SerializeField]
     public Text dead;
+
     [SerializeField] 
     private Text finishLevel;
     PlayerHealth playerHealth;
 
-    public static UIBehaviour Instance; // singleton dla ³atwego dostêpu do UI
-    public GameObject levelCompleteMessage; // UI element dla komunikatu o ukoñczeniu poziomu
+    public static UIBehaviour Instance; // singleton access to UI
+    public Text levelCompleteMessage; // UI element for level finish communication
+    [SerializeField] private float displayTime = 2f; //display text time
+    // [SerializeField] private GameObject backgroundImage;
 
     // public String initialDeadText = "";
     //public String deadText = "You have died!";
@@ -56,6 +59,7 @@ public class UIBehaviour : MonoBehaviour
         PlayerHealth.OnHealthUpdated += UpdateHealthUI;
       //  initialDeadText = dead.ToString();
         dead.gameObject.SetActive(false);
+      //  backgroundImage.gameObject.SetActive(false);
     }
     //Disabling updating hp and score
     private void OnDisable()
@@ -67,6 +71,7 @@ public class UIBehaviour : MonoBehaviour
     {
         //hidding field on game start
         dead.gameObject.SetActive(false);
+      //  backgroundImage.gameObject.SetActive(false);
     }
     private void UpdateScoreUI(int newScore)
     {
@@ -85,12 +90,36 @@ public class UIBehaviour : MonoBehaviour
         {
             heart1.sprite = emptyHeart; // if hp == 0 set emptyHeart icon
             dead.gameObject.SetActive(true); // display "You are dead"
+          
             dead.text = "You are dead";
+            /*if (backgroundImage != null)
+            {
+               backgroundImage.GetComponent<GameObject>();
+                backgroundImage.gameObject.SetActive(true); // activating background
+            }*/
+
         }
         else
         {
             // disable information when hp is > than 0
             dead.gameObject.SetActive(false);
+
+          /*  if (backgroundImage != null)
+            {
+                backgroundImage.gameObject.SetActive(false);
+            }*/
+           
         }
+    }
+    public void ShowLevelCompletedMessage()
+    {
+        levelCompleteMessage.gameObject.SetActive(true); //showing text on screen
+        levelCompleteMessage.text = "Level Completed!"; // Set message
+    }
+
+    // Hiding message
+    public void HideLevelCompletedMessage()
+    {
+        levelCompleteMessage.gameObject.SetActive(false);
     }
 }
