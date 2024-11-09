@@ -40,7 +40,6 @@ public class UIBehaviour : MonoBehaviour
     public Text dead;
 
     [SerializeField] 
-    private Text finishLevel;
     PlayerHealth playerHealth;
 
     public static UIBehaviour Instance; // singleton access to UI
@@ -59,7 +58,8 @@ public class UIBehaviour : MonoBehaviour
         PlayerHealth.OnHealthUpdated += UpdateHealthUI;
       //  initialDeadText = dead.ToString();
         dead.gameObject.SetActive(false);
-      //  backgroundImage.gameObject.SetActive(false);
+        levelCompleteMessage.gameObject.SetActive(false);
+        //  backgroundImage.gameObject.SetActive(false);
     }
     //Disabling updating hp and score
     private void OnDisable()
