@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Player
 {
-    [CreateAssetMenu(menuName = "Scriptable Objects/Player Config", fileName = "Player Attack config")]
+    [CreateAssetMenu(menuName = "Scriptable Objects/Player Attack Config", fileName = "Player Attack config")]
     public class PlayerAttackConfig : ScriptableObject
     {
         [Header("Player Damage Values")]
