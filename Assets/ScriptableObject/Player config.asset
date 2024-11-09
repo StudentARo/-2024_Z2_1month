@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Player config
   m_EditorClassIdentifier: 
   BaseHealth: 3
-  MaxHealth: 5
+  MaxHealth: 3
   MinHealth: 1
   BaseScore: 0
