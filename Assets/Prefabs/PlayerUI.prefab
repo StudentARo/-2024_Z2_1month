@@ -518,6 +518,7 @@ MonoBehaviour:
   - {fileID: 6462279205592893556}
   - {fileID: 5826264693075736881}
   dead: {fileID: 6512894721963816911}
+  playerConfig: {fileID: 11400000, guid: e10a9b13bc6c539439bd9a684eb8dcf7, type: 2}
   levelCompleteMessage: {fileID: 7270775631245475003}
 --- !u!1 &6177412764527642715
 GameObject:

@@ -38,6 +38,9 @@ public class UIBehaviour : MonoBehaviour
     [SerializeField]
     public Text dead;
 
+    [SerializeField]
+    private PlayerConfig playerConfig;
+
     //[SerializeField] 
     PlayerHealth playerHealth;
 
@@ -85,7 +88,7 @@ public class UIBehaviour : MonoBehaviour
         heart3.sprite = currentHealth >= 3 ? fullHeart : emptyHeart;
 
         // if hp == 0 disable HP sprite and show "You are dead"
-        if (currentHealth <= 0)
+        if (currentHealth < playerConfig.MinHealth)
         {
             heart1.sprite = emptyHeart; // if hp == 0 set emptyHeart icon
             dead.gameObject.SetActive(true); // display "You are dead"
