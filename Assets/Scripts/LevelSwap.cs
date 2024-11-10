@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class LevelSwap : MonoBehaviour
 {
     public UIBehaviour uIBehaviour;
+    public PlayerScore score;
 
+    int currentScore;
     private void OnTriggerEnter2D(Collider2D other)
     {
        //checking Player Tag
@@ -37,9 +40,11 @@ public class LevelSwap : MonoBehaviour
 
     private void LoadNextScene()
     {
+       
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex + 1);
         uIBehaviour.HideLevelCompletedMessage();
+     
     }
 
     private void Update()

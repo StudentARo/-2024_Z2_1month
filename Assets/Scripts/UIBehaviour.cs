@@ -121,5 +121,6 @@ public class UIBehaviour : MonoBehaviour
     public void HideLevelCompletedMessage()
     {
         levelCompleteMessage.gameObject.SetActive(false);
+      
     }
 }

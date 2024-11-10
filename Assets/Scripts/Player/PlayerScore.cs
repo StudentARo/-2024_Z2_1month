@@ -5,9 +5,11 @@ using Player;
 public class PlayerScore : MonoBehaviour
 {
     [SerializeField] private PlayerConfig _playerConfig;
+    LevelSwap lswap;
     public static event Action<int> OnScoreUpdated;
     public int _currentScore;   //As public for testing purposes
     internal readonly int coins;
+    int _saveScore;
 
     private void Start()
     {
@@ -22,6 +24,12 @@ public class PlayerScore : MonoBehaviour
         }
 
         _currentScore += pointsAmount;
+        _saveScore = _currentScore;
         OnScoreUpdated?.Invoke(_currentScore);
+    }
+    public int ReloadScore()
+    {
+         _currentScore = _saveScore;
+        return _currentScore;
     }
 }

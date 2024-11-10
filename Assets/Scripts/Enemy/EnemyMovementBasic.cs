@@ -55,6 +55,11 @@ public class EnemyMovementBasic : MonoBehaviour
     
     void Update()
     {
+        if(!_playerTransform)
+        {
+            return;
+        }
+            
         _idleTimer += Time.deltaTime;
         
         if (CheckPlayerNearby() || _isSwitchingDestination)
