@@ -4,6 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
+    private static readonly int Run = Animator.StringToHash("run");
+    private static readonly int Jump = Animator.StringToHash("jump");
+    [SerializeField] private Animator playerAnimator;
     [SerializeField] private float _moveSpeed = 4.0f;  // Value for horizontal movement
     [SerializeField] private float _jumpForce = 7.0f;  // Value for vertical movement
     [SerializeField] [Range(0.0f,50.0f)] private float _groundFriction = 0.8f;   //Value should be set in range of 0-1 (1 means no friction from 'ground', 0 means friction to high to move on 'ground') 
@@ -63,11 +66,16 @@ public class PlayerMovement : MonoBehaviour
         //Horizontal movement
         if (Math.Abs(_inputHorizontal) > 0)
         {
+            playerAnimator.SetBool(Run, true);
             _rigidBody2D.velocity = new Vector2(_inputHorizontal * _moveSpeed, _rigidBody2D.velocity.y);
             
             //Sets the Player Sprite to horizontal movement direction
             float direction = Mathf.Sign(_inputHorizontal);
             transform.localScale = new Vector3(direction, 1, 1);
+        }
+        else
+        {
+            playerAnimator.SetBool(Run, false);
         }
     }
 
@@ -76,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
         //Vertical movement
         if (_isJump && _coyoteTimeCounter > 0)
         {
+            playerAnimator.SetTrigger(Jump);
             _rigidBody2D.drag = 0;
             _rigidBody2D.velocity = new Vector2(_rigidBody2D.velocity.x, 0);
             _rigidBody2D.AddForce(_rigidBody2D.transform.up * _jumpForce, ForceMode2D.Impulse);
@@ -84,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
         } 
         else if (_isJump && _isDoubleJumpPossible)
         {
+            playerAnimator.SetTrigger(Jump);
             _rigidBody2D.velocity = new Vector2(_rigidBody2D.velocity.x, 0);
             _rigidBody2D.AddForce(_rigidBody2D.transform.up * _jumpForce, ForceMode2D.Impulse);
             _isDoubleJumpPossible = false;
