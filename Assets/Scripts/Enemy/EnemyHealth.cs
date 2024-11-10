@@ -4,7 +4,8 @@ public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] private EnemyConfig _enemyConfig;
     private Animator _enemyAnimator;
-    public int _currentHealth;  //As public for testing purposes;
+    public int _currentHealth;  //
+    private bool isDead;
     private void Awake ()
     {
         _currentHealth = _enemyConfig.BaseHealth;
@@ -17,14 +18,19 @@ public class EnemyHealth : MonoBehaviour
         {
             return;
         }
-
-        _currentHealth -= damage;
-        _enemyAnimator.SetTrigger(_enemyConfig.AnimatorGetHitTrigerName);
         
-        if (_currentHealth < _enemyConfig.MinHealth)
-        {
-            _enemyAnimator.SetTrigger(_enemyConfig.AnimatorDieTrigerName);
-        }
+            _currentHealth -= damage;
+
+            if (!isDead && _currentHealth >= _enemyConfig.MinHealth)
+            {
+                _enemyAnimator.SetTrigger(_enemyConfig.AnimatorGetHitTrigerName);
+            }
+
+            if (_currentHealth < _enemyConfig.MinHealth && !isDead)
+            {   
+                isDead = true;
+                _enemyAnimator.SetTrigger(_enemyConfig.AnimatorDieTrigerName);
+            }
         
     }
     
