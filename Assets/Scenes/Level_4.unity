@@ -96380,7 +96380,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9021736136960030464, guid: 9dfc1db32decd7348be06cb45e554b9d, type: 3}
       propertyPath: m_Name
-      value: Barrel (2)
+      value: RocketBarell
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
