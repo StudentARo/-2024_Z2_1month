@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using SilverCoin;
 using Collectibles;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
 using System;
 using Player;
 using System.Data.Common;
@@ -14,7 +13,7 @@ using System.Data.Common;
 
 public class UIBehaviour : MonoBehaviour
 {
-    public Text scoreText;  // Referencja do pola tekstowego UI
+    public Text scoreText;  // Reference for text field UI
     private int initialScore;
     [SerializeField]
 
@@ -39,7 +38,7 @@ public class UIBehaviour : MonoBehaviour
     [SerializeField]
     public Text dead;
 
-    [SerializeField] 
+    //[SerializeField] 
     PlayerHealth playerHealth;
 
     public static UIBehaviour Instance; // singleton access to UI
@@ -91,7 +90,7 @@ public class UIBehaviour : MonoBehaviour
             heart1.sprite = emptyHeart; // if hp == 0 set emptyHeart icon
             dead.gameObject.SetActive(true); // display "You are dead"
           
-            dead.text = "You are dead";
+            dead.text = "You are dead. Press R to restart level.";
             /*if (backgroundImage != null)
             {
                backgroundImage.GetComponent<GameObject>();

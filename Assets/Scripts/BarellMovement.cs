@@ -9,7 +9,7 @@ public class BarrelMovement : MonoBehaviour
 {
     [SerializeField]
     private float barrelSpeed = 1f; //barell speed
-    [SerializeField]
+    //[SerializeField]
     private Rigidbody2D barrelBody;
     [SerializeField]
     private float force = 25f; //physics throw player variable
