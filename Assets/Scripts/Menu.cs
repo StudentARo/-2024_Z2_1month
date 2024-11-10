@@ -29,6 +29,7 @@ public class Menu : MonoBehaviour
         highScoreButton.onClick.AddListener(OnHighScoreClicked);
         creditsButton.onClick.AddListener(OnCreditsClicked);
         exitButton.onClick.AddListener(OnExitClicked);
+      
     }
 
     // Load last checkpoint
@@ -72,4 +73,5 @@ public class Menu : MonoBehaviour
         Debug.Log("Exit Game");
         Application.Quit();
     }
+
 }

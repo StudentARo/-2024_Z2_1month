@@ -44,7 +44,7 @@ public class UIBehaviour : MonoBehaviour
 
     public static UIBehaviour Instance; // singleton access to UI
     public Text levelCompleteMessage; // UI element for level finish communication
-    [SerializeField] private float displayTime = 2f; //display text time
+   //[SerializeField] private float displayTime = 2f; //display text time
     // [SerializeField] private GameObject backgroundImage;
 
     // public String initialDeadText = "";
